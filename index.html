@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW"/>
+    <meta name="author" content="Tony Wu, email (tonywu@gmail.com)"/>
+        
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon-57x57-precomposed.png"/>
+
+	<title>Local Goods</title> 
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+    
+    <script type="text/javascript" src="library.js"></script>
+    
+<!-- Google Analytics //-->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'XXXXXXXXXX']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+<body> 
+
+<div data-role="page" id="homepage">
+
+		<a name="top"></a>
+		<div data-role="header" data-theme="e">
+        <a href="index.html" data-icon="delete">Home</a>
+	    <h1>GoodZ Finder</h1>	
+	    <a href="#listview" data-icon="grid" data-theme="b" onClick="showListView()">List View</a>
+		</div><!-- /header -->
+
+	<div class="divider">
+    	<span>.</span>
+    </div>
+
+	<div data-role="content">		        
+        <div id="map_canvas" style="width:100%;height:480px;margin-top:-25px;margin-left:-10px;">
+        </div>        
+        	
+	</div><!-- /content -->
+
+	
+<div data-role="footer" data-id="foo1" data-position="fixed">
+	<div data-role="navbar">
+		<ul>
+			<li><a href="#searchpage">Search</a></li>
+			<li><a href="#postnewitempage">Post</a></li>
+			<li><a href="#contact">Help</a></li>
+		</ul>
+	</div><!-- /navbar -->
+</div><!-- /footer -->
+    
+</div><!-- /homepage -->
+
+<!-- BEGIN search result list view page-->
+<div data-role="page" id="listview">
+
+		<a name="top"></a>
+		<div data-role="header" data-theme="e">
+        <a href="index.html" data-icon="home">Home</a>
+	    <h1>GoodZ Finder</h1>	
+	    <a href="#homepage" data-icon="star" data-theme="b">Map View</a>
+		</div><!-- /header -->
+
+	<div data-role="content" id="listContentDiv">	        
+        	
+	</div><!-- /content -->
+
+	
+<div data-role="footer" data-id="foo1" data-position="fixed">
+	<div data-role="navbar">
+		<ul>
+			<li><a href="#searchpage">Search</a></li>
+			<li><a href="#postnewitempage">Post</a></li>
+			<li><a href="#contact">Help</a></li>
+		</ul>
+	</div><!-- /navbar -->
+</div><!-- /footer -->
+    
+</div><!-- END search result list view page-->
+
+
+<!-- BEGIN search page-->
+<div data-role="page" id="searchpage">
+
+		<a name="top"></a>
+		<div data-role="header" data-theme="e">
+        <a href="index.html" data-icon="home">Home</a>
+	    <h1>GoodZ Finder</h1>
+		</div><!-- /header -->
+
+	<div data-role="content">
+    		<div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <label for="searchText">
+                Text
+                </label>
+                <input id="searchText" placeholder="" value="" type="search" />
+            </fieldset>
+        </div>
+		<div data-role="fieldcontain">
+            <label for="searchCategory">
+                Category
+            </label>
+            <select name="searchCategory" id="searchCategory">
+                <option>
+                </option>
+                <option>
+                    Movies, Music &amp; Games
+                </option>
+                <option>
+                    Electronics &amp; Computers
+                </option>
+                <option>
+                    Home, Garden &amp; Tools
+                </option>
+                <option>
+                    Toys, Kids &amp; Baby
+                </option>
+                <option>
+                    Clothing, Shoes &amp; Jewelry
+                </option>
+                <option>
+                    Sports &amp; Outdoors
+                </option>
+                <option>
+                    Automotive &amp; Industrial
+                </option>
+            </select>
+        </div>                
+        
+                <div data-role="fieldcontain">
+                    <label for="selectmenu1">
+                        Distance
+                    </label>
+                    <select name="selectmenu1" id="selectmenu1">
+                        <option value="1">
+                            &lt; 1 mile
+                        </option>
+                        <option value="5">
+                            &lt; 5 miles
+                        </option>
+                        <option value="10">
+                            &lt; 10 miles
+                        </option>
+                        <option value="25">
+                            &lt; 25 miles
+                        </option>
+                        <option value="25">
+                            &gt; 25 miles
+                        </option>
+                    </select>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="slider1">
+                            Minimum Price
+                        </label>
+                        <input type="range" name="slider" id="slider1" value="0" min="0" max="10000" data-highlight="false"/>
+                    </fieldset>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="slider2">
+                            Maximum Price
+                        </label>
+                        <input type="range" name="slider" id="slider2" value="50" min="0" max="10000" data-highlight="false" />
+                    </fieldset>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup" data-type="vertical" data-mini="true">
+                        <legend>
+                            Vendors?
+                        </legend>
+                        <input name="checkbox1" id="checkbox1" type="checkbox" />
+                        <label for="checkbox1">
+                            Checkbox
+                        </label>
+                    </fieldset>
+                </div>
+        	
+	</div><!-- /content -->
+
+	
+<div data-role="footer" data-id="foo1" data-position="fixed">
+	<div data-role="navbar">
+		<ul>
+			<li><a href="#searchpage" onClick="doSearch()" data-rel="back">Search</a></li>
+			<li><a href="#postnewitempage">Post</a></li>
+			<li><a href="#contact">Help</a></li>
+		</ul>
+	</div><!-- /navbar -->
+</div><!-- /footer -->
+    
+    
+</div><!-- END search page-->
+
+
+
+<!-- BEGIN Post New Item -->
+        <div data-role="page" id="postnewitempage">
+        
+        		<a name="top"></a>
+		<div data-role="header" data-theme="e">
+        <a href="index.html" data-icon="delete">Cancel</a>
+	    <h1>Post New Item</h1>	
+	    <a href="index.html" data-icon="check" data-theme="b">Save</a>    
+    	</div><!-- /header -->
+        
+            <div data-role="content" style="padding: 15px">
+            
+            
+                <div style="width: 288px; height: 150px; position: relative; background-color: #fbfbfb; border: 1px solid #b8b8b8;">
+                    <img src="http://codiqa.com/static/images/v2/image.png" alt="image" style="position: absolute; top: 50%; left: 50%; margin-left: -16px; margin-top: -18px" />
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="itemname">
+                        Name
+                        </label>
+                        <input id="itemname" placeholder="" value=""/>
+                    </fieldset>
+                </div>
+                
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="itemdesc">
+                        Description
+                        </label>
+                        <input id="itemdesc" placeholder="" value=""/>
+                    </fieldset>
+                </div>
+                
+                   <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="itemprice">
+                        Price
+                        </label>
+                        <input id="itemprice" placeholder="" value=""/>
+                    </fieldset>
+                </div>
+                
+            <div data-role="fieldcontain">
+                <label for="searchCategory">
+                    Category
+                </label>
+                <select name="searchCategory" id="searchCategory">
+                    <option>
+                    </option>
+                    <option>
+                        Movies, Music &amp; Games
+                    </option>
+                    <option>
+                        Electronics &amp; Computers
+                    </option>
+                    <option>
+                        Home, Garden &amp; Tools
+                    </option>
+                    <option>
+                        Toys, Kids &amp; Baby
+                    </option>
+                    <option>
+                        Clothing, Shoes &amp; Jewelry
+                    </option>
+                    <option>
+                        Sports &amp; Outdoors
+                    </option>
+                    <option>
+                        Automotive &amp; Industrial
+                    </option>
+                </select>
+            </div>                
+            
+             <a href="#" onClick="postNewItem()" data-role="button" data-inline="true" data-theme="b" data-rel="back">Submit</a>
+             
+            <a href="#" data-role="button" data-inline="true" data-theme="a" data-rel="back">Cancel</a>
+            
+            </div>
+     </div>
+     
+<div data-role="page" id="contact" data-theme="e">
+
+    <div data-role="header">
+        <h1>Team GoodzFellas</h1>
+    </div>
+
+    <div data-role="content" data-theme="d">
+    
+    	<div style="text-align:center">
+        	<img src="images/goodzfellas.jpg"/><br/>
+        
+        <h3>Team GoodzFellas</h3>    
+    
+        </div>
+    
+        <center><a href="mailto:bryantrchen@gmail.com"> Bryant Chen</a></center>
+        <center><a href="mailto:ethancheung2013@gmail.com"> Ethan Cheung</a></center>
+        <center><a href="mailto:tonycwu@yahoo.com"> Tony Wu</a></center>
+    </div>
+    
+    <div data-role="footer" data-id="foo1" data-position="fixed">
+	    <div data-role="navbar">
+		    <ul>
+			    <li><a href="#searchpage" onClick="doSearch()">Search</a></li>
+			    <li><a href="#postnewitempage">Post</a></li>
+			    <li><a href="#contact">Help</a></li>
+		    </ul>
+	    </div><!-- /navbar -->
+    </div><!-- /footer -->        
+</div>
+
+<!-- Start of third page: #popup -->
+<div data-role="page" id="loginpopup">
+
+	<div data-role="header" data-theme="e">
+		<h1>Login</h1>
+	</div><!-- /header -->
+
+	<div data-role="content" data-theme="d">
+		<form action="login_action.php" method="POST" data-ajax="false">        
+            <div data-role="fieldcontain">
+	         <label for="email">Email:</label>
+	         <input type="text" name="username" id="username" value=""  />
+			</div>
+			
+			<div data-role="fieldcontain">
+	         <label for="passcode">Passcode: (ie. a123)</label>
+	         <input type="password" name="passcode" id="passcode" value=""  />
+			</div>
+                   		
+			<div class="ui-body ui-body-b">
+			<fieldset class="ui-grid-a">					
+    	        <div class="ui-block-a"><button type="submit" data-theme="a">Submit</button></div>
+				<div class="ui-block-b"><a href="#" data-rel="back" data-theme="d" data-role="button" >Cancel</a></div>
+			</fieldset>
+			</div>
+			
+		</form>
+        
+	</div><!-- /content -->
+	
+</div><!-- /login popup -->
+
+<!-- Start of logout page: #logoutpopup -->
+<div data-role="page" id="logoutpopup">
+
+	<div data-role="header" data-theme="e">
+		<h1>Logout</h1>
+	</div><!-- /header -->
+
+	<div data-role="content" data-theme="d">
+    <p>You're now logged out.</p>
+
+    <p>You can login again with your email.</p>
+    </div>    
+</div><!-- /logout popup -->
+
+</body>
+</html>
